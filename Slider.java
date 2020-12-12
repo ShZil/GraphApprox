@@ -17,9 +17,16 @@ public class Slider {
   }
 
   float click(int x, int y) {
-    if (box.contains(new Point2D(x, y))) {
-      return this.box.width / jump;
+    if (box.contains(new Point(x, y))) {
+      float ratio = (float)(x - box.x) / box.width;
+      float difference = max - min;
+      return (float)Math.floor((ratio * difference + min)/jump) * jump;
     }
     return Float.NaN;
+  }
+
+  void render(Graphics g) {
+    g.setColor(new Color(0.8f, 0.8f, 0.8f));
+    g.drawRect(box.x, box.y, box.width, box.height);
   }
 }

@@ -17,6 +17,7 @@ import java.text.MessageFormat;
 class Main extends Canvas {
   // This code mutates every parameter to minimize the cost,
   // but doesn't think about parameters affecting each other.
+  // Work on the GUI.
 
   /* START of User-readable code. */
   public static final int runsPerClick = 1;
@@ -58,12 +59,15 @@ class Main extends Canvas {
   public static float g = 0f;
   Dimension size;
   Graph graph;
+  Graph current;
   float[] parameters = new float[parameterCount];
   private static float cost;
 
+  public static final Slider scaleSlider = new Slider(40, 100, 240, 40, Color.white, 50f, 500f, 50f);
+
   public Main() {
     this.size = new Dimension(Main.sizeOfWindow, Main.sizeOfWindow);
-    this.graph = new Graph(Main.samples, this, new Color(Main.inputGraphColor[0], Main.inputGraphColor[1], Main.inputGraphColor[2]));
+    graphsInit();
   }
 
   public static void main(String[] args) {
@@ -87,7 +91,6 @@ class Main extends Canvas {
   public void paint(Graphics g) {
     paintAxis(g);
     graph.paint(g, drawInputConnected);
-    Graph current = new Graph(parameters, this, new Color(Main.outputGraphColor[0], Main.outputGraphColor[1], Main.outputGraphColor[2]));
     current.paint(g, drawOutputConnected);
     g.setColor(axisColor);
     if (displayCost) {
@@ -98,6 +101,7 @@ class Main extends Canvas {
       g.setFont(new Font("Arial", Font.PLAIN, 20));
       g.drawString(equationFormat(parameters), 10, 70);
     }
+    scaleSlider.render(g);
   }
 
   public void mouseListener(int x, int y) {
@@ -120,6 +124,19 @@ class Main extends Canvas {
       parameters[i] += mutate(parameterMutationDirection[i] ? -1 : 1, currentCost);
     }
     System.out.println(equationFormat(parameters));
+
+
+    float val = scaleSlider.click(x, y);
+    if (!Float.isNaN(val)) {
+      Graph.convertionFactor = val;
+      System.out.println("Val = "+ val);
+    }
+    graphsInit();
+  }
+
+  public void graphsInit() {
+    current = new Graph(parameters, this, new Color(Main.outputGraphColor[0], Main.outputGraphColor[1], Main.outputGraphColor[2]));
+    graph = new Graph(Main.samples, this, new Color(Main.inputGraphColor[0], Main.inputGraphColor[1], Main.inputGraphColor[2]));
   }
 
   private float evaluateCost(float[] parameters, float[][] s) {
@@ -202,6 +219,25 @@ class Main extends Canvas {
   private void paintAxis(Graphics g) {
     Graph x = new Graph(new float[][]{
       {-10, 0},
+      {-9, 0},
+      {-8, 0},
+      {-7, 0},
+      {-6, 0},
+      {-5, 0},
+      {-4, 0},
+      {-3, 0},
+      {-2, 0},
+      {-1, 0},
+      {0, 0},
+      {1, 0},
+      {2, 0},
+      {3, 0},
+      {4, 0},
+      {5, 0},
+      {6, 0},
+      {7, 0},
+      {8, 0},
+      {9, 0},
       {10, 0}
     }, this, axisColor);
     Graph y = new Graph(new float[][]{

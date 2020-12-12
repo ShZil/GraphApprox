@@ -5,7 +5,7 @@ public class Graph {
   int thickness = 15;
   float[] params;
 
-  private static final float convertionFactor = 100f;
+  public static float convertionFactor = 100f;
   private static final float range = 5f;
   private static final float jump = 0.1f;
   private static final int pointsInGraph = 2 * (int)(range/jump);
