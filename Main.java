@@ -18,7 +18,7 @@ class Main extends Canvas {
   // This code mutates every parameter to minimize the cost,
   // but doesn't think about parameters affecting each other.
 
-  /* START of User-readable and changable code. */
+  /* START of User-readable code. */
   public static final int runsPerClick = 1;
   public static final int sizeOfWindow = 1000;
   public static final float[] inputGraphColor = new float[]{0f, 1f, 0f};
@@ -29,7 +29,7 @@ class Main extends Canvas {
   public static final float[] bgColor = new float[]{0f, 0f, 0f};
   public static final float mutationFactor = 0.005f;
   public static final float costRandomizerScale = 2f;
-  public static final int parameterCount = 2;
+  public static final int parameterCount = 3;
   public static final float floatPrintAccurecy = 10000f;
   public static final boolean displayCost = true;
   public static final boolean displayEquation = true;
@@ -48,7 +48,7 @@ class Main extends Canvas {
     return a*x*x + b*x + c;
   }
 
-  /* END of User-readable and changable code. */
+  /* END of User-readable code. */
   public static float a = 0f;
   public static float b = 0f;
   public static float c = 0f;
