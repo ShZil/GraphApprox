@@ -44,10 +44,16 @@ public class Slider {
   }
 
   void render(Graphics g) {
+    // Make the selected part appear different!
     g.setColor(new Color(0.8f, 0.8f, 0.8f));
     g.drawRect((int)(box.x), (int)(box.y), (int)(box.width), (int)(box.height));
     float off = box.width / ((max - min) / jump);
+    float ratio = (float)(i) / box.width;
+    float difference = max - min;
+    float val = (float)Math.floor((ratio * difference + min)/jump) * jump;
+    System.out.println("void Slider.render(Graphics): float val = "+val);
     for (float i = 0; i <= box.width; i+=off) {
+      System.out.println("void Slider.render(Graphics): float i = "+i);
       g.drawLine((int)((box.width/2 + i)), (int)(box.y), (int)((box.width/2 + i)), (int)((box.y + box.height)));
     }
     g.setFont(new Font("Arial", Font.PLAIN, (int)(box.height)));
