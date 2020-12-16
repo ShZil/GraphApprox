@@ -63,7 +63,7 @@ class Main extends Canvas {
   float[] parameters = new float[parameterCount];
   private static float cost;
 
-  public static final Slider scaleSlider = new Slider(40, 100, 240, 40, Color.white, 50f, 500f, 50f);
+  public static final Slider scaleSlider = new Slider("Scale:", 120, 90, 240, 40, Color.white, 50f, 500f, 50f, Graph.convertionFactor);
 
   public Main() {
     this.size = new Dimension(Main.sizeOfWindow, Main.sizeOfWindow);
@@ -95,10 +95,10 @@ class Main extends Canvas {
     g.setColor(axisColor);
     if (displayCost) {
       g.setFont(new Font("Arial", Font.PLAIN, 30));
-      g.drawString("Cost = "+numberFormat(cost), 20, 40);
+      g.drawString("Cost = "+Main.numberFormat(cost), 20, 40);
     }
     if (displayEquation) {
-      g.setFont(new Font("Arial", Font.PLAIN, 20));
+      g.setFont(new Font("Arial", Font.PLAIN, 30));
       g.drawString(equationFormat(parameters), 10, 70);
     }
     scaleSlider.render(g);
@@ -184,13 +184,13 @@ class Main extends Canvas {
     float f = 5 < parameterCount ? parameters[5] : 0f;
     float g = 6 < parameterCount ? parameters[6] : 0f;
 
-    a = numberFormat(a);
-    b = numberFormat(b);
-    c = numberFormat(c);
-    d = numberFormat(d);
-    e = numberFormat(e);
-    f = numberFormat(f);
-    g = numberFormat(g);
+    a = Main.numberFormat(a);
+    b = Main.numberFormat(b);
+    c = Main.numberFormat(c);
+    d = Main.numberFormat(d);
+    e = Main.numberFormat(e);
+    f = Main.numberFormat(f);
+    g = Main.numberFormat(g);
 
     return MessageFormat.format(equation
     .replaceAll("a", "{0}")
@@ -212,7 +212,7 @@ class Main extends Canvas {
     .replaceAll("g", String.valueOf(g));*/
   }
 
-  private float numberFormat(float x) {
+  public static float numberFormat(float x) {
     return ((float)((int)(x * Main.floatPrintAccurecy)) / Main.floatPrintAccurecy);
   }
 
