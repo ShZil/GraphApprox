@@ -186,6 +186,17 @@ public static final boolean displayEquation = true;
 ```
 Specifies whether to display the current equation (parameters) in the window, or just in console.
 ```java
+public static final float GUIScale = 1f;
+```
+```js
+{
+  min: 0,
+  max: 2, // You may use more at your own risk.
+  prefered: 1
+}
+```
+Controls the scale of the displayed GUI (Graphic User Interface), which includes the equation, sliders, and general data.
+```java
 private static String equation = "y = ax² + bx + c";
 ```
 ```js

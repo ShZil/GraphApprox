@@ -34,6 +34,7 @@ class Main extends Canvas {
   public static final float floatPrintAccurecy = 10000f;
   public static final boolean displayCost = true;
   public static final boolean displayEquation = true;
+  public static final float GUIScale = 0.5f;
   private static String equation = "y = ax² + bx + c";
 
   public static final float[][] samples = new float[][] {
@@ -63,7 +64,7 @@ class Main extends Canvas {
   float[] parameters = new float[parameterCount];
   private static float cost;
 
-  public static final Slider scaleSlider = new Slider("Scale:", 120, 90, 240, 40, Color.white, 50f, 500f, 50f, Graph.convertionFactor);
+  public static final Slider scaleSlider = new Slider("Scale:", 120*GUIScale, 90*GUIScale, 240*GUIScale, 40*GUIScale, Color.white, 50f, 500f, 50f, Graph.convertionFactor);
 
   public Main() {
     this.size = new Dimension(Main.sizeOfWindow, Main.sizeOfWindow);
@@ -94,12 +95,12 @@ class Main extends Canvas {
     current.paint(g, drawOutputConnected);
     g.setColor(axisColor);
     if (displayCost) {
-      g.setFont(new Font("Arial", Font.PLAIN, 30));
-      g.drawString("Cost = "+Main.numberFormat(cost), 20, 40);
+      g.setFont(new Font("Arial", Font.PLAIN, (int)(30*GUIScale)));
+      g.drawString("Cost = "+Main.numberFormat(cost), (int)(20*GUIScale), (int)(40*GUIScale));
     }
     if (displayEquation) {
-      g.setFont(new Font("Arial", Font.PLAIN, 30));
-      g.drawString(equationFormat(parameters), 10, 70);
+      g.setFont(new Font("Arial", Font.PLAIN, (int)(30*GUIScale)));
+      g.drawString(equationFormat(parameters), (int)(10*GUIScale), (int)(70*GUIScale));
     }
     scaleSlider.render(g);
   }
