@@ -20,7 +20,7 @@ class Main extends Canvas {
   // Work on the GUI.
 
   /* START of User-readable code. */
-  public static final int runsPerClick = 1;
+  public static final int runsPerClick = 100;
   public static final int sizeOfWindow = 1000;
   public static final float[] inputGraphColor = new float[]{0f, 1f, 0f};
   public static final float[] outputGraphColor = new float[]{1f, 0f, 0f};
@@ -35,15 +35,16 @@ class Main extends Canvas {
   public static final boolean displayCost = true;
   public static final boolean displayEquation = true;
   public static final float GUIScale = 0.5f;
+  public static final EvaluationMethod method = EvaluationMethod.LINE;
   private static String equation = "y = ax² + bx + c";
 
   public static final float[][] samples = new float[][] {
-    {0f, 0f},
-    {1f, 0.5f},
-    {2f, 2f},
-    {3f, 4.5f},
-    {4f, 5f},
-    {4.1f, 5.2f}
+    {0f, -5f},
+    {1f, -2f},
+    {2.6f, -1f},
+    {3f, 0f},
+    {4f, 0f},
+    {4.1f, 0f}
   };
 
   private static float f(float x) {
@@ -51,6 +52,11 @@ class Main extends Canvas {
   }
 
   /* END of User-readable code. */
+
+  enum EvaluationMethod {
+    SUBSTITUTION, LINE
+  }
+
   public static float a = 0f;
   public static float b = 0f;
   public static float c = 0f;
@@ -142,7 +148,15 @@ class Main extends Canvas {
 
   private float evaluateCost(float[] parameters, float[][] s) {
     float sum = 0;
-    for (int i = 0; i < s.length; i++) {
+    if (method == EvaluationMethod.SUBSTITUTION) {
+      for (int i = 0; i < s.length; i++) {
+        sum += Math.abs((s[i][1]-f(parameters, s[i][0])));
+      }
+    }
+    if (method == EvaluationMethod.LINE) {
+      int i = 0;
+      sum += Math.abs((s[i][1]-f(parameters, s[i][0])));
+      i = s.length - 1;
       sum += Math.abs((s[i][1]-f(parameters, s[i][0])));
     }
     return sum;
@@ -177,21 +191,21 @@ class Main extends Canvas {
   }
 
   public String equationFormat(float[] parameters) {
-    float a = 0 < parameterCount ? parameters[0] : 0f;
-    float b = 1 < parameterCount ? parameters[1] : 0f;
-    float c = 2 < parameterCount ? parameters[2] : 0f;
-    float d = 3 < parameterCount ? parameters[3] : 0f;
-    float e = 4 < parameterCount ? parameters[4] : 0f;
-    float f = 5 < parameterCount ? parameters[5] : 0f;
-    float g = 6 < parameterCount ? parameters[6] : 0f;
+    float af = 0 < parameterCount ? parameters[0] : 0f;
+    float bf = 1 < parameterCount ? parameters[1] : 0f;
+    float cf = 2 < parameterCount ? parameters[2] : 0f;
+    float df = 3 < parameterCount ? parameters[3] : 0f;
+    float ef = 4 < parameterCount ? parameters[4] : 0f;
+    float ff = 5 < parameterCount ? parameters[5] : 0f;
+    float gf = 6 < parameterCount ? parameters[6] : 0f;
 
-    a = Main.numberFormat(a);
-    b = Main.numberFormat(b);
-    c = Main.numberFormat(c);
-    d = Main.numberFormat(d);
-    e = Main.numberFormat(e);
-    f = Main.numberFormat(f);
-    g = Main.numberFormat(g);
+    String a = Main.numberFormat(af);
+    String b = Main.numberFormat(bf);
+    String c = Main.numberFormat(cf);
+    String d = Main.numberFormat(df);
+    String e = Main.numberFormat(ef);
+    String f = Main.numberFormat(ff);
+    String g = Main.numberFormat(gf);
 
     return MessageFormat.format(equation
     .replaceAll("a", "{0}")
@@ -213,8 +227,8 @@ class Main extends Canvas {
     .replaceAll("g", String.valueOf(g));*/
   }
 
-  public static float numberFormat(float x) {
-    return ((float)((int)(x * Main.floatPrintAccurecy)) / Main.floatPrintAccurecy);
+  public static String numberFormat(float x) {
+    return (x < 0.0 ? "-" : "") + (float)((int)(x * Main.floatPrintAccurecy)) / Main.floatPrintAccurecy;
   }
 
   private void paintAxis(Graphics g) {

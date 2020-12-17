@@ -56,29 +56,29 @@ public class Slider {
 
     for (float i = 0; i <= box.width; i += off) {
       g.drawLine((int)(box.width/2 + i),
-                (int)(box.y),
+                box.y,
                 (int)(box.width/2 + i),
-                (int)(box.y + box.height)
+                box.y + box.height
                 );
       float ratio = i / box.width;
       float difference = max - min;
       float val = (float)Math.floor((ratio * difference + min) / jump) * jump;
       if (value == val) {
         g.fillRect((int)(box.width/2 + i),
-                  (int)(box.y),
+                  box.y,
                   (int)(off+2),
-                  (int)(box.height)
+                  box.height
                   );
       }
     }
 
     g.setFont(new Font("Arial", Font.PLAIN, box.height));
     g.drawString(name,
-                (int)(box.x - (name.length() * box.height / 2)),
+                box.x - (name.length() * box.height / 2),
                 (int)(box.y + box.height*0.8)
                 );
-    g.drawString(String.valueOf(Main.numberFormat(value)),
-                (int)(box.x + box.width + Slider.valueXOffset),
+    g.drawString(Main.numberFormat(value),
+                box.x + box.width + Slider.valueXOffset,
                 (int)(box.y + box.height*0.8)
                 );
   }

@@ -52,13 +52,20 @@ public class Graph {
       paint(g);
     } else {
       g.setColor(this.color);
-        for (int i = 0; i < points.length; i++) {
+
+      for (int i = 0; i < points.length; i++) {
         g.fillRect((int)points[i][0], (int)points[i][1], thickness, thickness);
         if (i > 0) {
           g.drawLine((int)points[i-1][0], (int)points[i-1][1],(int)points[i][0], (int)points[i][1]);
           g.drawLine((int)(points[i-1][0] + thickness), (int)(points[i-1][1] + thickness),(int)(points[i][0] + thickness), (int)(points[i][1] + thickness));
         }
       }
+
+      g.drawLine((int)points[0][0],
+                (int)points[0][1],
+                (int)points[points.length - 1][0],
+                (int)points[points.length - 1][1]
+                );
     }
   }
 }
