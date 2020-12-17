@@ -11,6 +11,7 @@ public class Slider {
   float max;
   float jump;
   float value;
+  float lastPressedX = 0;
 
   Slider(String n, int x, int y, int w, int h, Color clr, float min, float max, float jump, float defaultValue) {
     name = n;
@@ -38,26 +39,47 @@ public class Slider {
       float difference = max - min;
       float val = (float)Math.floor((ratio * difference + min)/jump) * jump;
       value = val;
+      lastPressedX = x;
       return val;
     }
     return Float.NaN;
   }
 
   void render(Graphics g) {
-    // Make the selected part appear different!
-    g.setColor(new Color(0.8f, 0.8f, 0.8f));
-    g.drawRect((int)(box.x), (int)(box.y), (int)(box.width), (int)(box.height));
+    // TODO: Make the selected part appear different!
+
+    g.setColor(c);
+
+    g.drawRect(box.x, box.y, box.width, box.height);
+
     float off = box.width / ((max - min) / jump);
-    float ratio = (float)(i) / box.width;
-    float difference = max - min;
-    float val = (float)Math.floor((ratio * difference + min)/jump) * jump;
-    System.out.println("void Slider.render(Graphics): float val = "+val);
-    for (float i = 0; i <= box.width; i+=off) {
-      System.out.println("void Slider.render(Graphics): float i = "+i);
-      g.drawLine((int)((box.width/2 + i)), (int)(box.y), (int)((box.width/2 + i)), (int)((box.y + box.height)));
+
+    for (float i = 0; i <= box.width; i += off) {
+      g.drawLine((int)(box.width/2 + i),
+                (int)(box.y),
+                (int)(box.width/2 + i),
+                (int)(box.y + box.height)
+                );
+      float ratio = i / box.width;
+      float difference = max - min;
+      float val = (float)Math.floor((ratio * difference + min) / jump) * jump;
+      if (value == val) {
+        g.fillRect((int)(box.width/2 + i),
+                  (int)(box.y),
+                  (int)(off+2),
+                  (int)(box.height)
+                  );
+      }
     }
-    g.setFont(new Font("Arial", Font.PLAIN, (int)(box.height)));
-    g.drawString(name, (int)((box.x - (name.length() * box.height / 2))), (int)((box.y + box.height*0.8)));
-    g.drawString(String.valueOf(Main.numberFormat(value)), (int)((box.x + box.width + Slider.valueXOffset)), (int)((box.y + box.height*0.8)));
+
+    g.setFont(new Font("Arial", Font.PLAIN, box.height));
+    g.drawString(name,
+                (int)(box.x - (name.length() * box.height / 2)),
+                (int)(box.y + box.height*0.8)
+                );
+    g.drawString(String.valueOf(Main.numberFormat(value)),
+                (int)(box.x + box.width + Slider.valueXOffset),
+                (int)(box.y + box.height*0.8)
+                );
   }
 }

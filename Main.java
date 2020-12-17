@@ -218,34 +218,24 @@ class Main extends Canvas {
   }
 
   private void paintAxis(Graphics g) {
-    Graph x = new Graph(new float[][]{
-      {-10, 0},
-      {-9, 0},
-      {-8, 0},
-      {-7, 0},
-      {-6, 0},
-      {-5, 0},
-      {-4, 0},
-      {-3, 0},
-      {-2, 0},
-      {-1, 0},
-      {0, 0},
-      {1, 0},
-      {2, 0},
-      {3, 0},
-      {4, 0},
-      {5, 0},
-      {6, 0},
-      {7, 0},
-      {8, 0},
-      {9, 0},
-      {10, 0}
-    }, this, axisColor);
-    Graph y = new Graph(new float[][]{
-      {0, -10},
-      {0, 10}
-    }, this, axisColor);
-    x.paint(g, true);
-    y.paint(g, true);
+    final int len = 21;
+
+    float[][] pointsX = new float[len][2];
+    float[][] pointsY = new float[len][2];
+    String[] textX = new String[len];
+    String[] textY = new String[len];
+
+    for (int l = 0; l < len; l++) {
+      float v = (float)(l - Math.floor(len/2));
+      pointsX[l] = new float[]{v, 0};
+      pointsY[l] = new float[]{0, v};
+      textX[l] = String.valueOf((int)v);
+      textY[l] = String.valueOf((int)v);
+    }
+
+    LabeledGraph x = new LabeledGraph(pointsX, this, axisColor, textX);
+    LabeledGraph y = new LabeledGraph(pointsY, this, axisColor, textY);
+    x.paint(g, true, true, LabeledGraph.Direction.HORIZONTAL);
+    y.paint(g, true, true, LabeledGraph.Direction.VERTICAL);
   }
 }

@@ -8,9 +8,9 @@ public class Graph {
   public static float convertionFactor = 100f;
   private static final float range = 5f;
   private static final float jump = 0.1f;
-  private static final int pointsInGraph = 2 * (int)(range/jump);
+  private static final int pointsInGraph = 2 * (int)(range / jump);
 
-  private Color color;
+  protected Color color;
 
   public Graph(float[][] data, Main m, Color c) {
     this.points = transform(data, m);
@@ -52,14 +52,12 @@ public class Graph {
       paint(g);
     } else {
       g.setColor(this.color);
-      // System.out.println("Color: "+this.color.getRed()+","+this.color.getGreen()+","+this.color.getBlue());
-      for (int i = 0; i < points.length; i++) {
+        for (int i = 0; i < points.length; i++) {
         g.fillRect((int)points[i][0], (int)points[i][1], thickness, thickness);
         if (i > 0) {
           g.drawLine((int)points[i-1][0], (int)points[i-1][1],(int)points[i][0], (int)points[i][1]);
           g.drawLine((int)(points[i-1][0] + thickness), (int)(points[i-1][1] + thickness),(int)(points[i][0] + thickness), (int)(points[i][1] + thickness));
         }
-        // System.out.println("Drawn at: ("+points[i][0]+","+points[i][1]+")");
       }
     }
   }
