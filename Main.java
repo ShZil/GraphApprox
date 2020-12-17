@@ -35,7 +35,7 @@ class Main extends Canvas {
   public static final boolean displayCost = true;
   public static final boolean displayEquation = true;
   public static final float GUIScale = 0.5f;
-  public static final EvaluationMethod method = EvaluationMethod.LINE;
+  public static final EvaluationMethod method = EvaluationMethod.SUBSTITUTION;
   private static String equation = "y = ax² + bx + c";
 
   public static final float[][] samples = new float[][] {

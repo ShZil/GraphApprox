@@ -197,6 +197,16 @@ public static final float GUIScale = 1f;
 ```
 Controls the scale of the displayed GUI (Graphic User Interface), which includes the equation, sliders, and general data.
 ```java
+public static final EvaluationMethod method = EvaluationMethod.SUBSTITUTION;
+```
+```js
+{
+  min: EvaluationMethod.LINE,
+  max: EvaluationMethod.SUBSTITUTION,
+  prefered: EvaluationMethod.SUBSTITUTION
+}
+```
+```java
 private static String equation = "y = ax² + bx + c";
 ```
 ```js
