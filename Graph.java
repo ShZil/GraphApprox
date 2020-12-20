@@ -7,8 +7,10 @@ public class Graph {
 
   public static float convertionFactor = 100f;
   private static final float range = 5f;
-  private static final float jump = 0.1f;
+  private static final float jump = 0.01f;
   private static final int pointsInGraph = 2 * (int)(range / jump);
+  private static final boolean drawFinalLine = false;
+  private static final float lerpOver = 50;
 
   protected Color color;
 
@@ -40,10 +42,8 @@ public class Graph {
 
   public void paint(Graphics g) {
     g.setColor(this.color);
-    // System.out.println("Color: "+this.color.getRed()+","+this.color.getGreen()+","+this.color.getBlue());
     for (int i = 0; i < points.length; i++) {
       g.fillRect((int)points[i][0], (int)points[i][1], thickness, thickness);
-      // System.out.println("Drawn at: ("+points[i][0]+","+points[i][1]+")");
     }
   }
 
@@ -52,20 +52,38 @@ public class Graph {
       paint(g);
     } else {
       g.setColor(this.color);
-
       for (int i = 0; i < points.length; i++) {
         g.fillRect((int)points[i][0], (int)points[i][1], thickness, thickness);
         if (i > 0) {
-          g.drawLine((int)points[i-1][0], (int)points[i-1][1],(int)points[i][0], (int)points[i][1]);
-          g.drawLine((int)(points[i-1][0] + thickness), (int)(points[i-1][1] + thickness),(int)(points[i][0] + thickness), (int)(points[i][1] + thickness));
+          for (float j = 1; j < lerpOver; j++) {
+            float x1 = points[i][0];
+            float y1 = points[i][1];
+            float x2 = points[i-1][0];
+            float y2 = points[i-1][1];
+            float ratio = lerpOver - j;
+            float[] loc = lerp(x1, x2, y1, y2, ratio, j);
+            g.fillRect((int)(loc[0]), (int)(loc[1]), thickness/2, thickness/2);
+          }
         }
       }
 
-      g.drawLine((int)points[0][0],
-                (int)points[0][1],
-                (int)points[points.length - 1][0],
-                (int)points[points.length - 1][1]
-                );
+      if (drawFinalLine) {
+        g.drawLine((int)points[0][0],
+        (int)points[0][1],
+        (int)points[points.length - 1][0],
+        (int)points[points.length - 1][1]
+        );
+      }
     }
+  }
+
+  private float[] lerp(float x1, float x2, float y1,
+  float y2, float m, float n)
+  {
+    // Applying section formula
+    float x = ((n * x1) + (m * x2)) / (m + n);
+    float y = ((n * y1) + (m * y2)) / (m + n);
+
+    return new float[]{x, y};
   }
 }

@@ -73,10 +73,10 @@ public class Slider {
     }
 
     g.setFont(new Font("Arial", Font.PLAIN, box.height));
-    g.drawString(name,
+    /*g.drawString(name,
                 box.x - (name.length() * box.height / 2),
                 (int)(box.y + box.height*0.8)
-                );
+                );*/
     g.drawString(Main.numberFormat(value),
                 box.x + box.width + Slider.valueXOffset,
                 (int)(box.y + box.height*0.8)
