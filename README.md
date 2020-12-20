@@ -5,8 +5,8 @@ This repository provides a ` java.awt.Canvas ` on which a given graph is drawn, 
 
 ### Info:
 - Created by ShZil.
-- Was made in two full days.
-- Uses `rgb` color-space.
+- First version was made in two full days.
+- Uses `RGB` color-space.
 
 ### Instructions to Use:
 1. Open `Main.java`.
@@ -18,13 +18,13 @@ This repository provides a ` java.awt.Canvas ` on which a given graph is drawn, 
 ```
 3. The variables and function you may change are listed below.
 4. Once done with interacting and inserting your data points, follow the following:
-- 1. Re-Compile all the java files using cmd command:
+5. 1. Re-Compile all the java files using cmd command:
 
 `C:/Users/You/WhereverYouSavedThisCode> javac *.java`
-2. Execute the program:
+5. 2. Execute the program:
 
 `C:/Users/You/WhereverYouSavedThisCode> java Main`
-- **Enjoy the show!** *Leftclick anywhere within the window to progress.*
+ 6. **Enjoy the show!** *Leftclick anywhere within the window to progress.*
 
 ### The code you may interact with:
 ##### Specified in the previous section, chapter 2.
@@ -258,3 +258,5 @@ This function is the function format of the equation, and you must input one. Us
 - `java.lang.Math` library.
 
 Any letter out of `a, b, c, d, e, f, g` will be replaced with its relative parameter's value.
+
+_Note:_ If you decrease the `parameterCount`, make sure to change your `String equation` and `float f(x)`!
